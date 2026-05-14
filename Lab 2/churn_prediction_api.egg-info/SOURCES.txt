@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+app/__init__.py
+app/logger_setup.py
+app/model_utils.py
+churn_prediction_api.egg-info/PKG-INFO
+churn_prediction_api.egg-info/SOURCES.txt
+churn_prediction_api.egg-info/dependency_links.txt
+churn_prediction_api.egg-info/requires.txt
+churn_prediction_api.egg-info/top_level.txt
+tests/test_main.py
