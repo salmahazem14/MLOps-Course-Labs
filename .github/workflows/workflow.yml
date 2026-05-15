@@ -31,7 +31,12 @@ jobs:
         run: |
           python -c "import joblib; joblib.load('Lab 2/data/rf_model.pkl')"
           python -c "import joblib; joblib.load('Lab 2/data/column_transformer.pkl')"
-
+          
+      - name: Debug path
+        run: |
+            pwd
+            ls -R
+          
       - name: API startup test
         run: |
            export PYTHONPATH=.
