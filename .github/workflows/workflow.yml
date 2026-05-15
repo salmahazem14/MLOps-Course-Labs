@@ -36,16 +36,11 @@ jobs:
         run: |
             pwd
             ls -R
-          
-      - name: API startup test
-        run: |
-           export PYTHONPATH=.
-           python -c "from app.main import app; print('API OK')"
            
-      - name: Debug path
+      - name: API import test
         run: |
-            pwd
-            ls -R
+          export PYTHONPATH=$PWD
+          python -c "import sys; sys.path.append('lab 2'); import app.main; print('OK')"
           
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
