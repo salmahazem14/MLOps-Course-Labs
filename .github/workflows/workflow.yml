@@ -71,4 +71,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
             docker stop churn-api || true
             docker rm churn-api || true
-            docker run -d -p 8000:8000 --name churn-api ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
+            docker run -d -p 80:8000 --name churn-api ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
