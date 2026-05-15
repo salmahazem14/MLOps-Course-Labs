@@ -1,4 +1,4 @@
-name: Deploy to Churn Prediction to AWS
+name: Build, Test & Push to ECR
 
 on:
   push:
@@ -6,33 +6,48 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest 
-    
+  ci-cd:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code 
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Set up Python 
-       uses : actions/setup-python@v5
-       with:
-        python-version : "3.11"
-  
-      - name: Install Requirements File 
-        run: | 
-          pip install -r requirements.txt 
-          
-      - name: Validate model
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Import sanity check
+        run: |
+          python -c "import pandas, sklearn, joblib, litestar"
+
+      - name: Validate ML model files
         run: |
           python -c "import joblib; joblib.load('rf_model.pkl')"
           python -c "import joblib; joblib.load('column_transformer.pkl')"
 
-      - name: Build Docker Image 
-        run : |
-          docker build -t chrun-image:latest .
-      
-          
+      - name: API startup check
+        run: |
+          python -c "import main; print('API imports successfully')"
 
-    
-  
-  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}
+          docker build -t $IMAGE_URI:latest .
+          docker push $IMAGE_URI:latest
