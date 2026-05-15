@@ -61,7 +61,7 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
      
-       - name: Deploy to EC2
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -71,4 +71,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
             docker stop churn-api || true
             docker rm churn-api || true
-            docker run -d -p 8000:8000 --name churn-api ${{ secrets.DOCKE
+            docker run -d -p 8000:8000 --name churn-api ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
