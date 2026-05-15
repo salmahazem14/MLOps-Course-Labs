@@ -34,12 +34,12 @@ jobs:
           
       - name: Debug path
         run: |
+            cd "Lab 2" 
             pwd
             ls -R
             
       - name: API test
         run: |
-          cd "Lab 2/app" 
           export PYTHONPATH=$PWD
           python -c "import main; print('OK')"
           
