@@ -39,7 +39,7 @@ jobs:
             
       - name: API test
         run: |
-          cd "lab 2/app" 
+          cd "Lab 2/app" 
           export PYTHONPATH=$PWD
           python -c "import main; print('OK')"
           
