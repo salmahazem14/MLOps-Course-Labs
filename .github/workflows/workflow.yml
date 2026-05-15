@@ -29,8 +29,8 @@ jobs:
 
       - name: Validate ML model files
         run: |
-          python -c "import joblib; joblib.load('rf_model.pkl')"
-          python -c "import joblib; joblib.load('column_transformer.pkl')"
+          python -c "import joblib; joblib.load('lab 2 /data/rf_model.pkl')"
+          python -c "import joblib; joblib.load('lab 2 /data/column_transformer.pkl')"
 
       - name: API startup check
         run: |
