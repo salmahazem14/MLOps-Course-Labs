@@ -36,6 +36,11 @@ jobs:
         run: |
            export PYTHONPATH=.
            python -c "from app.main import app; print('API OK')"
+           
+      - name: Debug path
+        run: |
+            pwd
+            ls -R
           
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
