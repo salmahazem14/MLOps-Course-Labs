@@ -32,11 +32,11 @@ jobs:
           python -c "import joblib; joblib.load('Lab 2/data/rf_model.pkl')"
           python -c "import joblib; joblib.load('Lab 2/data/column_transformer.pkl')"
 
-      - name: API startup check
+      - name: API startup test
         run: |
-          export PYTHONPATH=.
-          python -c "import importlib; importlib.import_module('lab 2.app.main'); print('OK')"
-
+           export PYTHONPATH=.
+           python -c "from app.main import app; print('API OK')"
+          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
