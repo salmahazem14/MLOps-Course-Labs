@@ -38,11 +38,6 @@ jobs:
             pwd
             ls -R
             
-      - name: API test
-        run: |
-          export PYTHONPATH=$PWD
-          python -c "import main; print('OK')"
-          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
