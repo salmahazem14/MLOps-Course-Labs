@@ -54,7 +54,7 @@ jobs:
         
       - name: Build Docker image
         run: |
-          pwd
+          cd "Labs 2"
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest .
       
       - name: Push Docker image
